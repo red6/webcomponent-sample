@@ -1,0 +1,67 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+<dom-module id="task-list">
+
+  <template>
+    <paper-toolbar>
+      <paper-icon-button icon="inbox" id="inbox"></paper-icon-button>
+      <div class="title">Aufgaben</div>
+    </paper-toolbar>
+
+    <paper-menu selected="{{_selectedIndex}}">
+      <template is="dom-repeat" items="{{tasks}}">
+        <paper-item>
+          <paper-item-body two-line>
+            <div>
+              <iron-icon icon="icons:gavel"></iron-icon>
+              <span>{{item.title}}</span>
+            </div>
+            <div secondary>{{item.lastTask}}</div>
+          </paper-item-body>
+        </paper-item>
+      </template>
+    </paper-menu>
+
+    <array-selector id="selector" items="{{tasks}}" selected-item="{{selectedTask}}"></array-selector>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'task-list',
+
+      properties: {
+        tasks: {
+          type: Array,
+          observer: '_tasksChanged'
+        },
+
+        _selectedIndex: {
+          observer: '_selectedIndexChanged'
+        },
+
+        selectedTask: {
+          notify: true
+        }
+
+      },
+
+      _tasksChanged: function() {
+        this._selectedIndex = 0;
+      },
+
+      _selectedIndexChanged: function(idx) {
+        this.$.selector.select(this.tasks[idx]);
+      }
+
+    });
+  </script>
+
+</dom-module>

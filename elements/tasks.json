@@ -1,0 +1,30 @@
+[{
+    "id": "0",
+    "title": "Artikel schreiben",
+    "tasks": [{
+        "text": "Zusammenfassung"
+    }, {
+        "text": "Resume schreiben"
+    }, {
+        "text": "Korrektur lesen"
+    }],
+    "lastTask": "Korrektur lesen"
+}, {
+    "id": "1",
+    "title": "Demo entwickeln",
+    "tasks": [{
+        "text": "Demo Applikation Idee finden"
+    }, {
+        "text": "Code entwickeln"
+    }],
+    "lastTask": "Code entwickeln"
+}, {
+    "id": "2",
+    "title": "Elemente aussuchen",
+    "tasks": [{
+        "text": "iron elements"
+    }, {
+        "text": "paper elements"
+    }],
+    "lastTask": "paper elements"
+}]

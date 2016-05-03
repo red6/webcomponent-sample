@@ -1,0 +1,21 @@
+{
+  "name": "task-viewer",
+  "private": true,
+  "authors": [
+    "T T"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "Polymer/webcomponentsjs#^0.7.x",
+    "polymer": "Polymer/polymer#^1.x",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.x",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.x",
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.x",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^1.x",
+    "iron-icons": "PolymerElements/iron-icons#^1.x",
+    "paper-badge": "PolymerElements/paper-badge#^1.x",
+    "paper-menu": "PolymerElements/paper-menu#^1.x",
+    "paper-item": "PolymerElements/paper-item#^1.x",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.x",
+    "paper-input": "PolymerElements/paper-input#^1.x"
+  }
+}

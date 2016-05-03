@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="task-list.html">
+<link rel="import" href="task-subtask-view.html">
+
+<dom-module id="opentasks-view">
+
+  <template>
+    <iron-ajax url="tasks.json" last-response="{{tasks}}" auto></iron-ajax>
+
+    <paper-drawer-panel>
+
+      <task-list drawer tasks="{{tasks}}" selected-task="{{selectedTask}}"></task-list>
+
+      <task-subtask-view main task="{{selectedTask}}"></task-comment-view>
+
+    </paper-drawer-panel>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'opentasks-view'
+    });
+  </script>
+
+</dom-module>

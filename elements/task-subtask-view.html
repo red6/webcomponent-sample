@@ -1,0 +1,66 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+
+<link rel="import" href="input-header.html">
+
+<dom-module id="task-subtask-view">
+
+  <template>
+
+    <style>
+      :host {
+        @apply(--layout-vertical);
+      }
+      .list {
+        @apply(--layout-flex);
+        overflow: auto;
+      }
+      paper-input {
+        padding: 10px;
+      }
+    </style>
+
+    <input-header label="{{task.title}}"></input-header>
+
+    <div class="list">
+      <template is="dom-repeat" items="{{task.tasks}}">
+        <paper-item>
+          <paper-item-body one-line>
+            <div>{{item.text}}</div>
+          </paper-item-body>
+        </paper-item>
+      </template>
+    </div>
+
+    <paper-input label="Neue Teil-Aufgabe:" on-keyup="_handleInput"></paper-input>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'task-subtask-view',
+
+      properties: {
+        task: Object
+      },
+
+      _handleInput: function(e) {
+        if (e.keyCode == 13) {
+          this.push('task.tasks', {
+            text: e.target.value
+          });
+          this.set('task.lastTask', e.target.value);
+          e.target.value = '';
+        }
+      }
+
+    });
+  </script>
+
+</dom-module>

@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="input-header">
+
+  <template>
+
+    <style>
+        .search-box {
+          padding-left: 10px;
+          padding-right: 10px;
+          background-color: #fff;
+          border: 1px solid #eee;
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        }
+        .search-box iron-icon {
+          color: var(--google-grey-700);
+          fill: var(--google-grey-700);
+          margin: 0 8px;
+        }
+        .search-box {
+          @apply(--layout-flex);
+          @apply(--layout-vertical);
+        }
+    </style>
+    <paper-toolbar>
+        <paper-input class="search-box" no-label-float="true" value="{{label}}" on-keyup="_handleInput">
+          <iron-icon prefix icon="label"></iron-icon>
+        </paper-input>
+    </paper-toolbar>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'input-header',
+      properties: {
+        label: {
+          type: String,
+          notify: true
+        }
+      },
+      _handleInput: function(e) {
+        if (e.keyCode == 13) {
+          this.editMode = false;
+        }
+      }
+    });
+  </script>
+
+</dom-module>
