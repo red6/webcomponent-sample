@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
+<script src="../node_modules/redux/dist/redux.js"></script>
+<script>
+    const initialState = {
+        loggedIn: false,
+        projects: null,
+        loading: false
+    };
+    const projectSearchReducer = (state, action) => {
+        if (!state) return initialState;
+        switch (action.type) {
+            case 'BDD_PROJECT_SEARCH_STARTED':
+                return Object.assign({}, state, {loading: true});
+
+            case 'BDD_PROJECT_SEARCH_COMPLETED':
+                return Object.assign({}, state, {
+                    loading: false,
+                    projects: action.projects
+                });
+        }
+    };
+    const store = Redux.createStore(
+        projectSearchReducer,
+        Redux.applyMiddleware(ReduxThunk.default)
+    );
+    ReduxMixin = PolymerRedux(store);
+</script>

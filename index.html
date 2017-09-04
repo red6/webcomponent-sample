@@ -1,13 +1,17 @@
 <!doctype html>
 <html>
 <head>
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+  <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
   <title>Demo open task viewer</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="import" href="elements/opentasks-view.html">
+
+  <script src="/node_modules/redux/dist/redux.js"></script>
+  <script src="/node_modules/redux-thunk/dist/redux-thunk.js"></script>
 
 </head>
 <body>

@@ -1,5 +1,9 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="task-list.html">
 <link rel="import" href="task-subtask-view.html">
@@ -9,19 +13,21 @@
   <template>
     <iron-ajax url="tasks.json" last-response="{{tasks}}" auto></iron-ajax>
 
-    <paper-drawer-panel>
+    <app-drawer-layout>
 
       <task-list drawer tasks="{{tasks}}" selected-task="{{selectedTask}}"></task-list>
 
       <task-subtask-view main task="{{selectedTask}}"></task-subtask-view>
 
-    </paper-drawer-panel>
+    </app-drawer-layout>
   </template>
 
   <script>
-    Polymer({
-      is: 'opentasks-view'
-    });
+    class OpentasksView extends Polymer.Element {
+        static get is() {
+            return 'opentasks-view';
+        }
+    }
   </script>
 
 </dom-module>
