@@ -5,6 +5,7 @@
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 
 <link rel="import" href="input-header.html">
 
@@ -23,9 +24,20 @@
       paper-input {
         padding: 10px;
       }
+
+       app-toolbar {
+         background-color: #4285f4;
+         color: #fff;
+       }
     </style>
 
-    <input-header label="{{task.title}}"></input-header>
+    <app-header-layout fullbleed has-scrolling-region="true">
+
+      <app-header slot="header" fixed condenses effects="waterfall">
+        <app-toolbar>
+          <input-header label="{{task.title}}"></input-header>
+        </app-toolbar>
+      </app-header>
 
     <div class="list">
       <template is="dom-repeat" items="{{task.tasks}}">
@@ -38,6 +50,7 @@
     </div>
 
     <paper-input label="Neue Teil-Aufgabe:" on-keyup="_handleInput"></paper-input>
+    </app-header-layout>
   </template>
 
   <script>
@@ -64,6 +77,7 @@
       }
 
     }
+    window.customElements.define(TaskSubtaskView.is, TaskSubtaskView);
   </script>
 
 </dom-module>

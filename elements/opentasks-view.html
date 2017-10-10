@@ -7,27 +7,104 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="task-list.html">
 <link rel="import" href="task-subtask-view.html">
+<link rel="import" href="redux-store.html">
 
 <dom-module id="opentasks-view">
 
   <template>
-    <iron-ajax url="tasks.json" last-response="{{tasks}}" auto></iron-ajax>
+    <style>
+      :host {
+        --app-primary-color: #008f65;
+        --app-secondary-color: black;
+        --app-drawer-width: 380px;
 
-    <app-drawer-layout>
+        display: block;
+      }
 
-      <task-list drawer tasks="{{tasks}}" selected-task="{{selectedTask}}"></task-list>
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
 
-      <task-subtask-view main task="{{selectedTask}}"></task-subtask-view>
+      app-drawer-layout {
+        --app-drawer-layout-content-transition: margin 0.2s;
+      }
+
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+    </style>
+
+    <app-drawer-layout fullbleed id="drawerLayout">
+      <app-drawer slot="drawer">
+        <task-list tasks="{{tasks}}"></task-list>
+      </app-drawer>
+      <div>
+        <task-subtask-view main task="{{selectedTask}}"></task-subtask-view>
+      </div>
 
     </app-drawer-layout>
   </template>
 
   <script>
-    class OpentasksView extends Polymer.Element {
+    class OpentasksView extends ReduxMixin(Polymer.Element) {
         static get is() {
             return 'opentasks-view';
         }
+        static get properties() {
+            return {
+                selectedTask: {
+                    type: Object
+                },
+                tasks: {
+                    type: Array,
+                    statePath: 'tasks',
+                },
+
+            }
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            this.dispatch('fetchTasks', `tasks.json`, `BLUB`);
+        }
+
+        static get actions() {
+            return {
+                fetchTasks: function(url) {
+                    return function(dispatch) {
+                        dispatch({type: 'TASK_LOADING_STARTED'});
+                        fetch(url, {})
+                            .then((response) => {
+                            let contentType =
+                                response.headers.get('content-type');
+                        if (contentType &&
+                            contentType.includes('application/json')) {
+                            return response.json();
+                        }
+                        throw new TypeError('Oops, no JSON!');
+                    })
+                    .then((json) => {
+                            console.log('BLUB response ' + json);
+                            dispatch({
+                                         type: 'TASK_LOADING_COMPLETED',
+                                         tasks: json,
+                                     });
+                    } )
+                    .catch( (error) => {
+                            dispatch({
+                                         type: 'TASK_LOADING_ERROR',
+                                     });
+                    } );
+                    };
+                }
+            };
+        }
     }
+    window.customElements.define(OpentasksView.is, OpentasksView);
   </script>
 
 </dom-module>

@@ -2,20 +2,20 @@
 <script src="../node_modules/redux/dist/redux.js"></script>
 <script>
     const initialState = {
-        loggedIn: false,
-        projects: null,
+        tasks: null,
         loading: false
     };
     const projectSearchReducer = (state, action) => {
         if (!state) return initialState;
         switch (action.type) {
-            case 'BDD_PROJECT_SEARCH_STARTED':
+            case 'TASK_LOADING_STARTED':
                 return Object.assign({}, state, {loading: true});
 
-            case 'BDD_PROJECT_SEARCH_COMPLETED':
+            case 'TASK_LOADING_COMPLETED':
+                console.log('BLUB completed ' + action.tasks);
                 return Object.assign({}, state, {
                     loading: false,
-                    projects: action.projects
+                    tasks: action.tasks
                 });
         }
     };
