@@ -42,7 +42,7 @@
   </template>
 
   <script>
-    class TaskList extends ReduxMixin(Polymer.Element) {
+    class TaskList extends TaskView.ReduxMixin(Polymer.Element) {
         static get is() {
             return 'task-list';
         }

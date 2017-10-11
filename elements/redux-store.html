@@ -1,27 +1,37 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
-<script src="../node_modules/redux/dist/redux.js"></script>
-<script>
-    const initialState = {
-        tasks: null,
-        loading: false
-    };
-    const projectSearchReducer = (state, action) => {
-        if (!state) return initialState;
-        switch (action.type) {
-            case 'TASK_LOADING_STARTED':
-                return Object.assign({}, state, {loading: true});
 
-            case 'TASK_LOADING_COMPLETED':
-                console.log('BLUB completed ' + action.tasks);
-                return Object.assign({}, state, {
-                    loading: false,
-                    tasks: action.tasks
-                });
+<link rel="import" href="redux-actions.html">
+<link rel="import" href="redux-middleware.html">
+<link rel="import" href="redux-reducers.html">
+<link rel="import" href="redux-selectors.html">
+
+<script>
+    (function() {
+
+        const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+            ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+            : Redux.compose;
+
+        const enhancer = composeEnhancers(
+            Redux.applyMiddleware(...TaskView.middleware),
+            );
+
+        const store = Redux.createStore(TaskView.rootReducer, enhancer);
+
+        const reduxMixin = PolymerRedux(store);
+
+        /* @mixinFunction */
+        const actionsMixin = (superClass) => {
+            return class extends reduxMixin(superClass) {
+                static get actions() {
+                    return TaskView.actions
+                }
+            }
         }
-    };
-    const store = Redux.createStore(
-        projectSearchReducer,
-        Redux.applyMiddleware(ReduxThunk.default)
-    );
-    ReduxMixin = PolymerRedux(store);
+
+        /* @mixinFunction */
+        TaskView.ReduxMixin = Polymer.dedupingMixin(actionsMixin);
+
+    }());
 </script>

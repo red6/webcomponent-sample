@@ -1,0 +1,40 @@
+<script>
+    (function() {
+        function requestTasks(url) {
+            return {
+                type: 'TASK_LOADING_STARTED',
+                url,
+            };
+        }
+
+        function receiveTasks(url, json) {
+            console.log('BLUB' + json);
+            return {
+                type: 'TASK_LOADING_COMPLETED',
+                url,
+                projects: json,
+                receivedAt: Date.now()
+            };
+        }
+
+        function fetchTasks(url) {
+            return (dispatch) => {
+                dispatch(requestTasks());
+                fetch(url, {})
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((json) => { dispatch(receiveProjects(url, json));} )
+                    .catch( (error) => {
+                        dispatch({
+                            type: 'TASK_LOADING_ERROR',
+                        });
+                    } );
+            };
+        }
+
+        TaskView.actions = {
+            fetchTasks
+        };
+    }());
+</script>
