@@ -72,37 +72,6 @@
             this.dispatch('fetchTasks', `tasks.json`, `BLUB`);
         }
 
-        static get actions() {
-            return {
-                fetchTasks: function(url) {
-                    return function(dispatch) {
-                        dispatch({type: 'TASK_LOADING_STARTED'});
-                        fetch(url, {})
-                            .then((response) => {
-                            let contentType =
-                                response.headers.get('content-type');
-                        if (contentType &&
-                            contentType.includes('application/json')) {
-                            return response.json();
-                        }
-                        throw new TypeError('Oops, no JSON!');
-                    })
-                    .then((json) => {
-                            console.log('BLUB response ' + json);
-                            dispatch({
-                                         type: 'TASK_LOADING_COMPLETED',
-                                         tasks: json,
-                                     });
-                    } )
-                    .catch( (error) => {
-                            dispatch({
-                                         type: 'TASK_LOADING_ERROR',
-                                     });
-                    } );
-                    };
-                }
-            };
-        }
     }
     window.customElements.define(OpentasksView.is, OpentasksView);
   </script>

@@ -51,8 +51,8 @@
             return {
               tasks: {
                 type: Array,
-                  statePath: 'tasks',
-                  //observer: '_tasksChanged'
+                  statePath: 'config.tasks',
+                  observer: '_tasksChanged()'
               },
 
               _selectedIndex: {
@@ -65,16 +65,14 @@
                   notify: true
               }
 
-            }
+            };
         }
 
       _tasksChanged() {
-            console.log('BLUB t changed' + this.tasks);
         this._selectedIndex = 0;
       }
 
       _selectedIndexChanged(idx) {
-            console.log('BLUB ' + idx);
         //this.$.selector.select(this.tasks[idx]);
       }
 

@@ -15,6 +15,6 @@
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0",
     "paper-input": "PolymerElements/paper-input#^2.0",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0",
-    "polymer-redux": "^1.0.2"
+    "polymer-redux": "^1.0.4"
   }
 }

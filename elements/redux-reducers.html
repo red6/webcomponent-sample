@@ -3,7 +3,7 @@
 <script>
     (function() {
 
-        function configReducer(
+        function config(
             state = {
                 loading: false,
                 tasks: []
@@ -25,7 +25,7 @@
         }
 
         TaskView.rootReducer = Redux.combineReducers({
-            configReducer,
+            config,
         });
 
     }());

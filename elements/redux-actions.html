@@ -8,11 +8,10 @@
         }
 
         function receiveTasks(url, json) {
-            console.log('BLUB' + json);
             return {
                 type: 'TASK_LOADING_COMPLETED',
                 url,
-                projects: json,
+                tasks: Array.from(json),
                 receivedAt: Date.now()
             };
         }
@@ -24,7 +23,9 @@
                     .then((response) => {
                         return response.json();
                     })
-                    .then((json) => { dispatch(receiveProjects(url, json));} )
+                    .then((json) => { dispatch(receiveTasks(url, json));
+                    console.log('BLB ' + json);
+                } )
                     .catch( (error) => {
                         dispatch({
                             type: 'TASK_LOADING_ERROR',
