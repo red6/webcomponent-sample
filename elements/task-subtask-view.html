@@ -55,14 +55,17 @@
   </template>
 
   <script>
-      class TaskSubtaskView extends Polymer.Element {
+      class TaskSubtaskView extends TaskView.ReduxMixin( Polymer.Element ) {
           static get is() {
               return 'task-subtask-view';
           }
 
           static get properties() {
               return {
-                  task: Object
+                  task: {
+                      type: Object,
+                      statePath: 'tasks.selectedItem'
+                  },
               }
 
           }

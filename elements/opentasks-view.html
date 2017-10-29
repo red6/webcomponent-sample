@@ -41,7 +41,7 @@
 
     <app-drawer-layout fullbleed id="drawerLayout">
       <app-drawer slot="drawer">
-        <task-list tasks="{{tasks}}"></task-list>
+        <task-list></task-list>
       </app-drawer>
       <div>
         <task-subtask-view main task="{{selectedTask}}"></task-subtask-view>
@@ -59,17 +59,12 @@
             return {
                 selectedTask: {
                     type: Object
-                },
-                tasks: {
-                    type: Array,
-                    statePath: 'tasks',
-                },
-
+                }
             }
         }
         connectedCallback() {
             super.connectedCallback();
-            this.dispatch('fetchTasks', `tasks.json`, `BLUB`);
+            this.dispatch('fetchTasks', `tasks.json`);
         }
 
     }

@@ -25,7 +25,7 @@
       <div main-title>Aufgaben</div>
     </app-toolbar>
 
-    <paper-listbox selected="[[_selectedIndex]]">
+    <paper-listbox selected="{{_selectedIndex}}">
       <template is="dom-repeat" items="[[tasks]]">
         <paper-item>
           <paper-item-body two-line>
@@ -51,12 +51,12 @@
             return {
               tasks: {
                 type: Array,
-                  statePath: 'config.tasks',
-                  observer: '_tasksChanged()'
+                  statePath: 'tasks.items',
+                  observer: '_tasksChanged'
               },
 
               _selectedIndex: {
-                observer: '_selectedIndexChanged(idx)'
+                observer: '_selectedIndexChanged'
               },
 
               selectedTask: {
@@ -65,7 +65,7 @@
                   notify: true
               }
 
-            };
+            }
         }
 
       _tasksChanged() {
@@ -73,7 +73,7 @@
       }
 
       _selectedIndexChanged(idx) {
-        //this.$.selector.select(this.tasks[idx]);
+            this.dispatch('openTask', idx);
       }
 
       _getSelectedTask() {

@@ -11,8 +11,15 @@
             return {
                 type: 'TASK_LOADING_COMPLETED',
                 url,
-                tasks: Array.from(json),
+                items: Array.from(json),
                 receivedAt: Date.now()
+            };
+        }
+
+        function openTask(idx) {
+            return {
+                type: 'OPEN_TASK',
+                itemIdx: idx,
             };
         }
 
@@ -23,19 +30,13 @@
                     .then((response) => {
                         return response.json();
                     })
-                    .then((json) => { dispatch(receiveTasks(url, json));
-                    console.log('BLB ' + json);
-                } )
-                    .catch( (error) => {
-                        dispatch({
-                            type: 'TASK_LOADING_ERROR',
-                        });
-                    } );
+                    .then((json) => { dispatch(receiveTasks(url, json));} );
             };
         }
 
         TaskView.actions = {
-            fetchTasks
+            fetchTasks,
+            openTask
         };
     }());
 </script>

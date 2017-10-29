@@ -33,7 +33,7 @@
   </template>
 
   <script>
-    class InputHeader extends Polymer.Element {
+    class InputHeader extends TaskView.ReduxMixin( Polymer.Element ) {
         static get is() {
             return 'input-header';
         }

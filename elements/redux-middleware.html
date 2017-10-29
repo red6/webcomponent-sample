@@ -12,6 +12,7 @@
             } = action
 
                 if (!types) {
+                    console.log('normal action');
                     // Normal action: pass it on
                     return next(action)
                 }
@@ -29,6 +30,7 @@
                 }
 
                 if (!shouldCallAPI(getState())) {
+                    console.log('no api call');
                     return
                 }
 

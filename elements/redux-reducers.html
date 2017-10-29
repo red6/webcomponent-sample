@@ -3,13 +3,8 @@
 <script>
     (function() {
 
-        function config(
-            state = {
-                loading: false,
-                tasks: []
-            },
-            action
-        ) {
+        //const tasksReducer = () =
+        function tasksReducer(state = { loading: false, tasks: [] }, action) {
             switch (action.type) {
                 case 'TASK_LOADING_STARTED':
                     return Object.assign({}, state, {loading: true});
@@ -17,7 +12,13 @@
                 case 'TASK_LOADING_COMPLETED':
                     return Object.assign({}, state, {
                         loading: false,
-                        tasks: action.tasks
+                        items: action.items
+                    });
+                case 'OPEN_TASK':
+                    return Object.assign({}, state, {
+                        items: state.items,
+                        selectedItem: state.items[action.itemIdx],
+                        loading: false
                     });
                 default:
                     return state;
@@ -25,7 +26,7 @@
         }
 
         TaskView.rootReducer = Redux.combineReducers({
-            config,
+            tasks: tasksReducer,
         });
 
     }());
